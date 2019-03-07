@@ -1,6 +1,5 @@
 <?php
-define('API_KEY','توکن');
-//----######------
+define('API_KEY','753319351:AAF5iUakNBWe6rc2njt_vDOgOhyKf3BepBg');
 function makereq($method,$datas=[]){
     $url = "https://api.telegram.org/bot".API_KEY."/".$method;
     $ch = curl_init();
@@ -14,7 +13,6 @@ function makereq($method,$datas=[]){
         return json_decode($res);
     }
 }
-//##############=--API_REQ
 function apiRequest($method, $parameters) {
   if (!is_string($method)) {
     error_log("Method name must be a string\n");
@@ -27,7 +25,6 @@ function apiRequest($method, $parameters) {
     return false;
   }
   foreach ($parameters as $key => &$val) {
-    // encoding to JSON array parameters, for example reply_markup
     if (!is_numeric($val) && !is_string($val)) {
       $val = json_encode($val);
     }
@@ -39,11 +36,8 @@ function apiRequest($method, $parameters) {
   curl_setopt($handle, CURLOPT_TIMEOUT, 60);
   return exec_curl_request($handle);
 }
-//----######------
-//---------
 $update = json_decode(file_get_contents('php://input'));
 var_dump($update);
-//=========
 $chat_id = $update->message->chat->id;
 $boolean = file_get_contents('booleans.txt');
   $booleans= explode("\n",$boolean);
@@ -64,7 +58,6 @@ $music = $update->message->audio;
 $voice = $update->message->voice;
 $forward = $update->message->forward_from;
 $admin = 216996658;
-//-------
 function SendMessage($ChatId, $TextMsg)
 {
  makereq('sendMessage',[
@@ -94,7 +87,6 @@ function save($filename,$TXTdata)
 	fwrite($myfile, "$TXTdata");
 	fclose($myfile);
 	}
-//------------
 if($textmessage == '/start'){
     var_dump(makereq('sendMessage',[
         'chat_id'=>$update->message->chat->id,
